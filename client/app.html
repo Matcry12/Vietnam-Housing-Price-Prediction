@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dự đoán Giá nhà Việt Nam</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <div class="img"></div>
+    <form class="form">
+        <h2>Vietnam Housing Price</h2>
+        
+        <div class="input-group">
+            <label>Area (m2)</label>
+            <input class="area"  type="number" id="uiArea" class="floatLabel" name="Squareft" value="50">
+        </div>
+
+        <div class="input-group">
+            <label>Frontage (m)</label>
+            <input class="frontage" type="number" id="uiFrontage" class="floatLabel" name="uiFrontage" value="4">
+        </div>
+
+        <div class="input-group">
+            <label>Access road</label>
+            <input class="frontage" type="number" id="uiRoad" class="floatLabel" name="uiFrontage" value="4">
+        </div>
+
+        <div class="input-group">
+            <label>Floors</label>
+            <input class="floors" type="number" id="uiFloors" class="floatLabel" name="uiFloors" value="2">
+        </div>
+
+        <div class="input-group">
+            <label>Bedrooms</label>
+            <input class="floors" type="number" id="uiBed" class="floatLabel" name="uiFloors" value="2">
+        </div>
+
+        <div class="input-group">
+            <label>Bathrooms</label>
+            <input class="floors" type="number" id="uiBath" class="floatLabel" name="uiFloors" value="2">
+        </div>
+
+        <div class="input-group">
+            <label>Direction</label>
+            <select class="direction" name="" id="uiDirection">
+                <option value="" disabled="disabled" selected="selected">Select direction</option>
+                </select>
+        </div>
+
+        <div class="input-group">
+            <label>Balcony direction</label>
+            <select class="balcony" name="" id="uiBalcony">
+                <option value="" disabled="disabled" selected="selected">Select direction</option>
+                </select>
+        </div>
+
+        <div class="input-group">
+            <label>District</label>
+            <select class="district" name="" id="uiDistrict">
+                <option value="" disabled="disabled" selected="selected">Select district</option>
+                </select>
+        </div>
+
+        <button class="submit" onclick="onClickedEstimatePrice()" type="button">Predict</button>
+        
+        <div id="uiEstimatedPrice" class="result"><h2></h2></div>
+
+        <h4></h4>
+    </form>
+
+</body>
+</html>

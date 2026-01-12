@@ -1,6 +1,8 @@
 from fastapi import FastAPI, HTTPException
 import util
 from contextlib import asynccontextmanager
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -16,6 +18,25 @@ app = FastAPI(
     version="1.0",
     lifespan=lifespan,
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"], 
+    allow_headers=["*"],
+)
+
+class HouseInput(BaseModel):
+    area: float
+    frontage: float
+    access_road: float
+    floors: int
+    bedrooms: int
+    bathrooms: int
+    direction: str 
+    balcony: str 
+    district: str   
 
 @app.get("/get_district_names")
 def _get_district_names():
@@ -41,18 +62,27 @@ def _get_balcony_names():
     return response
 
 @app.post("/predict_house_price")
-def predict_price(area, frontage, access_road, floors, bedrooms, bathrooms, _direction, _balcony, _district):
+def predict_price(item: HouseInput):
     
     try:
-        price = util.get_estimated_price(area, frontage, access_road, floors, bedrooms, bathrooms, _direction, _balcony, _district)
+        price = util.get_estimated_price(
+            item.area, 
+            item.frontage, 
+            item.access_road, 
+            item.floors, 
+            item.bedrooms, 
+            item.bathrooms, 
+            item.direction, 
+            item.balcony, 
+            item.district
+        )
+        
+        # Trả về kết quả
+        return {
+            "price": price 
+        }
     except Exception as e:
         return {"success": False, "error": str(e)}
-
-    response = {
-        "Price": price
-    }
-
-    return response
 
 
 if __name__ == "__main__":
